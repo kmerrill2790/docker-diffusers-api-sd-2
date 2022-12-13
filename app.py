@@ -288,11 +288,9 @@ def inference(all_inputs: dict) -> dict:
     if seed == None:
         generator = torch.Generator(device="cuda")
         generator.seed()
-        return generator
     else:
         generator = torch.Generator(device="cuda").manual_seed(seed)
         del model_inputs["seed"]
-        return generator
 
     model_inputs.update({"generator": generator})
 
@@ -317,6 +315,6 @@ def inference(all_inputs: dict) -> dict:
 
     # Return the results as a dictionary
     if len(images_base64) > 1:
-        return {"images_base64": images_base64, "$timings": timings, "generator": generator}
+        return {"images_base64": images_base64, "$timings": timings}
 
-    return {"image_base64": images_base64[0], "$timings": timings, "generator": generator}
+    return {"image_base64": images_base64[0], "$timings": timings}
