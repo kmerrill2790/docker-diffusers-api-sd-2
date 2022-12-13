@@ -288,9 +288,11 @@ def inference(all_inputs: dict) -> dict:
     if seed == None:
         generator = torch.Generator(device="cuda")
         generator.seed()
+        return generator
     else:
         generator = torch.Generator(device="cuda").manual_seed(seed)
         del model_inputs["seed"]
+        return generator
 
     model_inputs.update({"generator": generator})
 
